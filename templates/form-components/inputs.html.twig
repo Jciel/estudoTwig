@@ -1,0 +1,34 @@
+
+{% macro inputName(value, name, id, placeholder, labelName, inputClasses) %}
+    <label for="{{ name }}">{{ labelName }}</label>
+    <input type="text" 
+           name="{{ name }}" 
+           value="{{ value }}" 
+           placeholder="{{ placeholder }}"
+           class="{{ inputClasses|default([])|forConcat }}"
+    >
+{% endmacro %}
+
+
+
+
+{% macro inputPassword(value, name, placeholder, labelName, inputClasses) %}
+    <label for="{{ name }}">{{ labelName }}</label>
+    <input type="password" 
+           name="{{ name }}" 
+           value="{{ value }}" 
+           placeholder="{{ placeholder }}"
+           class="{{ inputClasses|default([])|forConcat }}"
+    >
+{% endmacro %}
+
+{% macro inputSelect(value, name, labelName, listItems, inputClasses) %}
+    <label for="{{ name }}">{{ labelName }}</label>
+    <select name="{{ name }}" 
+            class="{{ inputClasses|default([])|forConcat }}"
+    >
+        {% for key, item in listItems %}
+            <option value="{{ key }}" {{ (key is same as(value)) ? 'selected' }}>{{ item }}</option>
+        {% endfor %}
+    </select>
+{% endmacro %}
