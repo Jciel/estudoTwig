@@ -26,5 +26,5 @@ use Zend\ConfigAggregator\ConfigAggregator;
 
 return [
     'debug' => true, // false para ativar cache twig
-    ConfigAggregator::ENABLE_CACHE => true,
+    ConfigAggregator::ENABLE_CACHE => false,
 ];

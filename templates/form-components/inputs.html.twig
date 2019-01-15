@@ -1,34 +1,43 @@
 
-{% macro inputName(value, name, id, placeholder, labelName, inputClasses) %}
+{% macro inputText(name, id, placeholder, labelName, value, inputClasses) %}
     <label for="{{ name }}">{{ labelName }}</label>
     <input type="text" 
            name="{{ name }}" 
+           id="{{ id }}" 
            value="{{ value }}" 
            placeholder="{{ placeholder }}"
            class="{{ inputClasses|default([])|forConcat }}"
     >
 {% endmacro %}
 
-
-
-
-{% macro inputPassword(value, name, placeholder, labelName, inputClasses) %}
+{% macro inputPassword(name, id, placeholder, labelName, value, inputClasses) %}
     <label for="{{ name }}">{{ labelName }}</label>
     <input type="password" 
            name="{{ name }}" 
            value="{{ value }}" 
            placeholder="{{ placeholder }}"
+           id="{{ id }}"
            class="{{ inputClasses|default([])|forConcat }}"
     >
 {% endmacro %}
 
-{% macro inputSelect(value, name, labelName, listItems, inputClasses) %}
+{% macro inputSelect(name, id, labelName, value, listItems, inputClasses) %}
     <label for="{{ name }}">{{ labelName }}</label>
     <select name="{{ name }}" 
-            class="{{ inputClasses|default([])|forConcat }}"
-    >
+            id="{{ id }}" 
+            class="{{ inputClasses|default([])|forConcat }}">
         {% for key, item in listItems %}
-            <option value="{{ key }}" {{ (key is same as(value)) ? 'selected' }}>{{ item }}</option>
+            {#<option value="{{ key }}" {{ (key is same as(value)) ? 'selected' }}>{{ item }}</option>#}
+            <option value="{{ item }}" {{ (item is same as(value)) ? 'selected' }}>{{ item }}</option>
         {% endfor %}
     </select>
+{% endmacro %}
+
+{% macro inputTextArea(name, id, labelName, value, inputClasses) %}
+    <label for="{{ name }}">{{ labelName }}</label>
+    <textarea name="{{ name }}" 
+              id="{{ id }}" 
+              class="{{ inputClasses|default([])|forConcat }}">
+        {{ value }}
+    </textarea>
 {% endmacro %}

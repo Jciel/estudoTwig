@@ -4,6 +4,24 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Handler\ExpensePageHandler;
+use App\Handler\ExpensePageHandlerFactory;
+use App\Handler\RevenuePageHandler;
+use App\Handler\RevenuePageHandlerFactory;
+use Doctrine\Common\EventManager;
+use Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain;
+use Doctrine\MongoDB\Configuration;
+use Doctrine\MongoDB\Connection;
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
+use Doctrine\ODM\MongoDB\Mapping\Driver\XmlDriver;
+use Helderjs\Component\DoctrineMongoODM\AnnotationDriverFactory;
+use Helderjs\Component\DoctrineMongoODM\ConfigurationFactory;
+use Helderjs\Component\DoctrineMongoODM\ConnectionFactory;
+use Helderjs\Component\DoctrineMongoODM\DocumentManagerFactory;
+use Helderjs\Component\DoctrineMongoODM\EventManagerFactory;
+use Helderjs\Component\DoctrineMongoODM\MappingDriverChainFactory;
+use Helderjs\Component\DoctrineMongoODM\XmlDriverFactory;
 use Twig_Extension;
 use Twig_SimpleFilter;
 
@@ -23,6 +41,8 @@ class ConfigProvider
      */
     public function __invoke() : array
     {
+        $this->registryAnnotations();
+        
         return [
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
@@ -37,10 +57,22 @@ class ConfigProvider
     {
         return [
             'invokables' => [
+                \Doctrine\Common\Cache\ArrayCache::class => \Doctrine\Common\Cache\ArrayCache::class,
                 Handler\PingHandler::class => Handler\PingHandler::class,
             ],
             'factories'  => [
+                Configuration::class   => ConfigurationFactory::class,
+                Connection::class => ConnectionFactory::class,
+                EventManager::class => EventManagerFactory::class,
+                DocumentManager::class => DocumentManagerFactory::class,
+                AnnotationDriver::class => AnnotationDriverFactory::class,
+                XmlDriver::class => XmlDriverFactory::class,
+                MappingDriverChain::class => MappingDriverChainFactory::class,
+                
+                
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
+                ExpensePageHandler::class => ExpensePageHandlerFactory::class,
+                RevenuePageHandler::class => RevenuePageHandlerFactory::class
             ],
         ];
     }
@@ -83,5 +115,10 @@ class ConfigProvider
 //            ],
 //            'timezone' => 'default timezone identifier, e.g. America/New_York',
         ];
+    }
+    
+    private function registryAnnotations()
+    {
+        AnnotationDriver::registerAnnotationClasses();
     }
 }

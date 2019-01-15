@@ -1,19 +1,83 @@
 {% extends '@layout/default.html.twig' %}
-{% import '@form-components/inputs.html.twig' as form %}
+{% import '@form-components/inputs.html.twig' as input %}
+
+{% use "@layout/header.html.twig" %}
+
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    
-    <div class="input-group">
-        {{ form.inputName('', 'userName', '', '', '', ['form-control', 'teste']) }}
-    </div>
 
-    <div class="input-group">
-        {{ form.inputPassword('userName') }}
-    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                {#<th scope="col">Janeiro</th>#}
+                {#<th scope="col">Fevereiro</th>#}
+                {#<th scope="col">Marco</th>#}
+                {#<th scope="col">Abril</th>#}
+                {#<th scope="col">Maio</th>#}
+                {#<th scope="col">Junho</th>#}
+                {#<th scope="col">Julho</th>#}
+                {#<th scope="col">Agosto</th>#}
+                {#<th scope="col">Setembro</th>#}
+                {#<th scope="col">Outubro</th>#}
+                {#<th scope="col">Novembro</th>#}
+                {#<th scope="col">Dezembro</th>#}
+                <th scope="col">Mes</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% if expenses['Janeiro'] %}
+            <tr>
+                <td>{{ expenses['Janeiro']['_id'] }}</td>
+                {% for ex in expenses['Janeiro']['expenses'] %}
+                    <td>{{ ex.description }} <br> {{ ex.value }}</td>
+                {% endfor %}
+            </tr>
+        {% endif %}
+
+        {% if expenses['Fevereiro'] %}
+            <tr>
+                <td>{{ expenses['Fevereiro']['_id'] }}</td>
+                {% for ex in expenses['Fevereiro']['expenses'] %}
+                    <td>{{ ex.description }} <br> {{ ex.value }}</td>
+                {% endfor %}
+            </tr>
+        {% endif %}
+
+        {% if expenses['Marco'] %}
+            <tr>
+                <td>{{ expenses['Marco']['_id'] }}</td>
+                {% for ex in expenses['Marco']['expenses'] %}
+                    <td>{{ ex.description }} <br> {{ ex.value }}</td>
+                {% endfor %}
+            </tr>
+        {% endif %}
+
+            
+        
+        <tr>
+            <th scope="col">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+        </tr>
+        </tbody>
+    </table>
     
-    <div class="input-group">
-        {{ form.inputSelect(1, 'slectName', 'Nomes', ['Jociel', 'João', 'Joana', 'Marcela']) }}
-    </div>
 {% endblock %}
+
+
+

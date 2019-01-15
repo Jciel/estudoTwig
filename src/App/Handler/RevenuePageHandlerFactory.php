@@ -9,7 +9,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class HomePageHandlerFactory
+class RevenuePageHandlerFactory
 {
     public function __invoke(ContainerInterface $container) : RequestHandlerInterface
     {
@@ -20,6 +20,6 @@ class HomePageHandlerFactory
         /** @var DocumentManager $documentManager */
         $documentManager = $container->get(DocumentManager::class);
 
-        return new HomePageHandler($documentManager, $template);
+        return new RevenuePageHandler($documentManager, $template);
     }
 }
